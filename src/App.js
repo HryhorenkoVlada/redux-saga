@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  increaseCount,
+  decreaseCount,
+  getLatestNews,
+} from './redux/actions/actionCreator';
 
-function App() {
+const App = () => {
+  const counter = useSelector((store) => store.counter.count);
+  const dispatch = useDispatch();
+
+  const handleIncrease = () => {
+    dispatch(increaseCount());
+  };
+
+  const handleDecrease = () => {
+    dispatch(decreaseCount());
+  };
+
+  const handleNews = () => {
+    dispatch(getLatestNews());
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div style={{ padding: '50px 0px 0px 50px' }}>
+        <button onClick={handleIncrease}>+</button>
+        <span>{counter}</span>
+        <button onClick={handleDecrease}>-</button>
+      </div>
+      <div style={{ padding: '50px 0px 0px 50px' }}>
+        <button onClick={handleNews}>Get News</button>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
